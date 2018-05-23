@@ -1,0 +1,101 @@
+boardsize 4
+clear_board
+
+#trying to surround a space with each color to test eye filling
+
+play b a99
+#? [illegal move: b a99 wrong coordinate]
+
+play b a3 hello
+#? [illegal move: b a3 hello wrong number of arguments]
+
+play b a2
+
+10 legal_moves w
+#? [a1 a3 a4 b1 b2 b3 b4 c1 c2 c3 c4 d1 d2 d3 d4]
+# a2 is occupied, but the color check should trump the occupied check
+
+play w a2
+#? [illegal move: w a2 occupied]
+play g a2
+#? [illegal move: g a2 wrong color]
+play w c 4
+#? [illegal move: w c 4 wrong number of arguments]
+play w c4
+
+20 legal_moves b
+#? [a1 a3 a4 b1 b2 b3 b4 c1 c2 c3 d1 d2 d3 d4]
+play b b1
+
+30 legal_moves w
+#? [a3 a4 b2 b3 b4 c1 c2 c3 d1 d2 d3 d4]
+#a1 is a suicide
+
+play w a1
+#? [illegal move: w a1 suicide]
+play w c2
+
+#now black surrounds a1
+40 legal_moves b
+#? [a1 a3 a4 b2 b3 b4 c1 c3 d1 d2 d3 d4]
+#if a1 shows up, then black is filling up it's eyes
+play b a1
+
+50 legal_moves w
+#? [a3 a4 b2 b3 b4 c1 c3 d1 d2 d3 d4]
+play w b3
+
+60 legal_moves b
+#? [a3 a4 b2 b4 c1 c3 d1 d2 d3 d4]
+play b b2
+
+70 legal_moves w
+#? [a3 a4 b4 c1 c3 d1 d2 d3 d4]
+play w a1
+#? [illegal move: w a1 occupied]
+play w d3
+
+#now c3 and d4 is surrounded by white
+80 legal_moves b
+#? [a3 a4 b4 c1 d1 d2]
+play b c3
+#? [illegal move: b c3 suicide]
+play b d4
+#? [illegal move: b d4 suicide]
+play b c1
+
+#white can still fill it's eyes, of c3, d4
+#every open position is legal for white
+90 legal_moves w
+#? [a3 a4 b4 c3 d1 d2 d4]
+play w c3
+
+100 legal_moves b
+#? [a3 a4 b4 d1 d2]
+play b d2
+
+110 legal_moves w
+#? [a3 a4 b4 d4]
+#now d1 would be a capture
+play w d1
+#? [illegal move: w d1 capture]
+play w b4
+
+120 legal_moves b
+#? [a3 a4 d1]
+play b a4
+
+130 legal_moves w
+#? [d4]
+#a3 would be a capture as well
+play w a3
+#? [illegal move: w a3 capture]
+play w d4
+
+140 legal_moves b
+#? [d1]
+play b d1
+
+150 legal_moves w
+#? []
+#game over, black wins.
